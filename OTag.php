@@ -82,15 +82,15 @@ class OTag{
 			foreach($this->contents as $content){
 				if($content instanceof OTag){
 					self::$indent--;
-					$out .= self::$nl_char . str_repeat(self::$indent_char, (self::$indent<0)?0:self::$indent+1).$content->__toString();
+					$out .= self::_nl(self::$indent+1).$content->__toString();
 					self::$indent++;
 				}else{
-					$out .= self::$nl_char . str_repeat(self::$indent_char, (self::$indent<0)?0:self::$indent).$content;
+					$out .= self::_nl(self::$indent).$content;
 				}
 			}
 		}elseif(count($this->contents)==0){
 //if an empty tag
-			$out = self::$nl_char . str_repeat(self::$indent_char, (self::$indent<0)?0:self::$indent) . vsprintf(self::EMPTY_FORMAT,array($this->tag,$attribs));
+			$out = self::_nl(self::$indent) . vsprintf(self::EMPTY_FORMAT,array($this->tag,$attribs));
 		}elseif(count($this->contents) == 1 && !(current($this->contents) instanceof OTag)){
 //if contains a single item and contents not an OTag, don't nl indent contents'
 			$args[2] = current($this->contents);
@@ -100,12 +100,12 @@ class OTag{
 			$args[2] = "";
 			foreach($this->contents as $content){
 				if($content instanceof OTag){
-					$args[2] .= self::$nl_char . str_repeat(self::$indent_char, (self::$indent<0)?0:self::$indent+1).$content->__toString();
+					$args[2] .= self::_nl(self::$indent+1).$content->__toString();
 				}else{
-					$args[2] .= self::$nl_char . str_repeat(self::$indent_char, (self::$indent<0)?0:self::$indent+1).$content;
+					$args[2] .= self::_nl(self::$indent+1).$content;
 				}
 			}
-			$args[2] .= self::$nl_char . str_repeat(self::$indent_char, (self::$indent<0)?0:self::$indent);
+			$args[2] .= self::_nl(self::$indent);
 			$out = 	vsprintf(self::FORMAT, $args);
 		}
 		if($first){
@@ -114,6 +114,13 @@ class OTag{
 			self::$indent--;
 		}
 		return $out;
+	}
+	
+	private static function _nl($count,$nl=NULL,$i=NULL){
+		if($count<0){$count=0;}
+		if(empty($nl)){$nl = self::$nl_char;}
+		if(empty($i)){$i = self::$indent_char;}
+		return $nl.str_repeat($i,$count);
 	}
 	
 	private function _registerParent($parent){
