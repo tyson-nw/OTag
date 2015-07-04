@@ -6,8 +6,8 @@ amount of well formatted HTML without having to worry about closing tags
 or accidentally creating infinite loops of objects.
 
 Some Standard syntaxes for createing tags are:
+```
 <?php
-
 $div = new Tag("div", array("id"=>"main","class"=>"blurb content");
 $div->add($head = Tag::Craft("h1", "OTag has these");
 $features = array("Object Oriented","nesting","expandable syntax", "prevent infinite reference loops","takes html");
@@ -20,7 +20,9 @@ foreach($features as $f){
 $head->add("$n features");
 $head->inline();
 echo $div;
-
+```
+OUTPUTS
+```
 <div id='main' class='blurb content'>
 	<h1>OTag has these 5 features</h1>
 	<ul>
@@ -31,3 +33,4 @@ echo $div;
 		<li>takes html</li>
 	</ul>
 </div>
+```
