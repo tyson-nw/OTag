@@ -15,6 +15,14 @@ It strives to give you maximum flexibility while staying out of your way as much
 $body->add("<h2>Strings only, no fancy</h2>");
 $body->add("<p>add content with no details, you control the formatting</p>");
 
+$body->add("<h2>Inline content</h2>");
+$body->add($p = new OTag("p",array("id"=>"inline_test"),OTag::INLINE));
+$p->add("OTags with the \$display flagged as");
+$p->add(OTag::Craft("strong","OTag::INLINE"));
+$p->add("will include the contents inline with itself, removing newlines and indentation.");
+
+
+
 $body->add(OTag::Craft("h2", "Crafted with attribute strings", "class='header'"));
 $body->add(OTag::Craft("p", "This is an italicized string", "style='font-style: italic;'"));
 

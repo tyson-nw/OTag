@@ -46,7 +46,13 @@ class OTag{
 	}
 	
 	public function __set($attribute, $content){
-		$this->attributes[$attribute]=$content;
+		if($content==TRUE){
+			$this->attributes[]=$attribute;
+		}elseif($content==FALSE && ($pos = array_search($attribute, $this->attributes))!== FALSE){
+			unset($this->attributes[$pos]);
+		}else{
+			$this->attributes[$attribute]=$content;
+		}
 	}
 	
 	public function __get($attribute){
@@ -75,6 +81,13 @@ class OTag{
 		}
 		
 		$args = array($this->tag, $attribs, "", $this->tag);
+		
+		$nl = self::$nl_char;
+		$t = self::$indent_char;
+		if($this->display == self::INLINE){
+			self::$nl_char = " ";
+			self::$indent_char = "";
+		}
 		
 		if(empty($this->tag)){
 //if an empty tag, no tag wrtappers or attributes
@@ -108,6 +121,11 @@ class OTag{
 			$args[2] .= self::_nl(self::$indent);
 			$out = 	vsprintf(self::FORMAT, $args);
 		}
+		if($this->display == self::INLINE){
+			self::$nl_char = $nl;
+			self::$indent_char = $t;
+		}
+		
 		if($first){
 			self::$outputting = FALSE;
 		}else{
@@ -151,6 +169,10 @@ class OTag{
 		
 		foreach ($parts as $part) {
 		    $result[$part[1]] = stripslashes($part[2] ? $part[2] : ($part[3] ? $part[3] : $part[4]));
+			if($result[$part[1]] == $part[1]){	//added to trim down boolean attributes. Issue #3
+				unset($result[$part[1]]);
+				$result[] = $part[1];
+			}
 		}
 		return $result;
 	}
