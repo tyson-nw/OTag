@@ -12,7 +12,7 @@ out layered html of any complexity without missing a close tag or malforming you
 It strives to give you maximum flexibility while staying out of your way as much as possible.",array("style"=>"width: 20em;")));
 
 $body->add("<h2>Strings only, no fancy</h2>");
-$body->add("<p>add content with no details</p>");
+$body->add("<p>add content with no details, you control the formatting</p>");
 
 $body->add(OTag::Craft("h2", "Crafted with attribute strings", "class='header'"));
 $body->add(OTag::Craft("p", "This is an italicized string", "style='font-style: italic;'"));
