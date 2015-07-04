@@ -3,7 +3,8 @@
  * These are example uses for OTag
 **/ 
 include "OTag.php";
-OTag::$indent_char = OTag::$nl_char="";
+OTag::$indent_char = "  ";
+OTag::$indent = -1;
 $body = new OTag("body");
 $body->add("<h1>OTag example page</h1>");
 $body->add(OTag::Craft("p", "Welcome to the demo of OTag, the HTML Generating Tag Object.  

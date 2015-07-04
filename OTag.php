@@ -81,14 +81,16 @@ class OTag{
 			$out = "";
 			foreach($this->contents as $content){
 				if($content instanceof OTag){
-					$out .= $content->__toString();
+					self::$indent--;
+					$out .= self::$nl_char . str_repeat(self::$indent_char, (self::$indent<0)?0:self::$indent+1).$content->__toString();
+					self::$indent++;
 				}else{
-					$out .= $content;
+					$out .= self::$nl_char . str_repeat(self::$indent_char, (self::$indent<0)?0:self::$indent).$content;
 				}
-			}			
+			}
 		}elseif(count($this->contents)==0){
 //if an empty tag
-			$out = self::$nl_char . str_repeat(self::$indent_char, self::$indent) . vsprintf(self::EMPTY_FORMAT,array($this->tag,$attribs));
+			$out = self::$nl_char . str_repeat(self::$indent_char, (self::$indent<0)?0:self::$indent) . vsprintf(self::EMPTY_FORMAT,array($this->tag,$attribs));
 		}elseif(count($this->contents) == 1 && !(current($this->contents) instanceof OTag)){
 //if contains a single item and contents not an OTag, don't nl indent contents'
 			$args[2] = current($this->contents);
@@ -98,12 +100,12 @@ class OTag{
 			$args[2] = "";
 			foreach($this->contents as $content){
 				if($content instanceof OTag){
-					$args[2] .= self::$nl_char . str_repeat(self::$indent_char, self::$indent+1).$content->__toString();
+					$args[2] .= self::$nl_char . str_repeat(self::$indent_char, (self::$indent<0)?0:self::$indent+1).$content->__toString();
 				}else{
-					$args[2] .= self::$nl_char . str_repeat(self::$indent_char, self::$indent+1).$content;
+					$args[2] .= self::$nl_char . str_repeat(self::$indent_char, (self::$indent<0)?0:self::$indent+1).$content;
 				}
 			}
-			$args[2] .= self::$nl_char . str_repeat(self::$indent_char, self::$indent);
+			$args[2] .= self::$nl_char . str_repeat(self::$indent_char, (self::$indent<0)?0:self::$indent);
 			$out = 	vsprintf(self::FORMAT, $args);
 		}
 		if($first){
