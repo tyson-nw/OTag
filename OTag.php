@@ -118,7 +118,11 @@ class OTag{
 					$args[2] .= self::_nl(self::$indent+1).$content;
 				}
 			}
+			
 			$args[2] .= self::_nl(self::$indent);
+			if($this->display == self::INLINE){
+				$args[2]=trim($args[2]);
+			}
 			$out = 	vsprintf(self::FORMAT, $args);
 		}
 		if($this->display == self::INLINE){
