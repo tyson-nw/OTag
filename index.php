@@ -56,7 +56,10 @@ foreach($data as $raw){
 		$containers[$row[3]]->add($table = OTag::Craft("table",$head));
 		$table->add($tbodies[$row[3]] = new OTag("tbody", "id='code$row[3]'"));
 	}
-	$tbodies[$row[3]]->add(OTag::Craft("tr", "<td>".implode("</td><td>",$row)."</td>"));
+	$tbodies[$row[3]]->add($curr = OTag::Craft("tr", "<td>".implode("</td><td>",$row)."</td>"));
+	if(strtotime($row[2])> time()){
+		$curr->style="font-style: italic;";
+	}
 }
 ksort($containers);
 foreach($containers as $container){

@@ -46,7 +46,7 @@ class OTag{
 	}
 	
 	public function __set($attribute, $content){
-		if($content==TRUE){
+		if($content===TRUE){
 			$this->attributes[]=$attribute;
 		}elseif($content==FALSE && ($pos = array_search($attribute, $this->attributes))!== FALSE){
 			unset($this->attributes[$pos]);
