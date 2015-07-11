@@ -67,7 +67,7 @@ foreach($containers as $container){
 }
 
 $body->add("<h2>Paired and unpaired empty Tags</h2>");
-$body->add("<p>By default a tag with no content will be considered an upaired tag.  Though you can explicity ")
+$body->add("<p>By default a tag with no content will be considered an upaired tag.  Though you can explicity set an OTag.</p>");
 $body->add($paired = new OTag("div"));
 $p = new OTag("p");
 $p->empty = OTag::PAIRED;
@@ -84,6 +84,7 @@ $force->add("Forced unpaired tag: ");
 $force->add(htmlentities($f));
 
 $body->add("<h2>Change attribute quotes</h2>");
+$body->add("<p>Attribute quote character can be set globally for all OTag's before outputting to string</p>");
 $body->add($default = new OTag("div",null,OTag::INLINE));
 $default->add("Default Behavior:");
 $input = new OTag("input","id='test' name='test_in' type='text' value='Let\'s test this'");
