@@ -4,15 +4,19 @@
 **/
 class OTag{
 	const FORMAT = "<%s%s>%s</%s>";
+	const PAIRED = "&nbsp";
+	const UNPAIRED = NULL;
 	const EMPTY_FORMAT = "<%s%s />";
 	const BLOCK = FALSE;
 	const INLINE = TRUE;
+	public static $quote = "'";
 	public static $indent = 0;
 	public static $indent_char = "\t";
 	public static $nl_char = "\n";
 	private static $outputting = FALSE;
 	
 	public $tag;
+	public $empty = NULL;
 	private $attributes;
 	private $contents = array();
 	private $parents = array();
@@ -31,6 +35,8 @@ class OTag{
 			$this->attributes = self::_parse_attributes($attributes);
 		}elseif(is_array($attributes)){
 			$this->attributes = $attributes;
+		}elseif(empty($attributes)){
+			$this->attributes = array();
 		}
 	}
 	
@@ -72,11 +78,12 @@ class OTag{
 		}
 		
 		$attribs = "";
+		$attrib_format = " %s=".self::$quote."%s".self::$quote;
 		foreach($this->attributes as $key=>$value){
 			if(is_numeric($key)){
 				$attribs .= " " . $value;
 			}else{
-				$attribs .= sprintf(" %s='%s'", $key, $value);
+				$attribs .= sprintf($attrib_format, $key, $value);
 			}
 		}
 		
@@ -88,6 +95,11 @@ class OTag{
 			self::$nl_char = " ";
 			self::$indent_char = "";
 		}
+		
+		if(count($this->contents)==0 && $this->empty == self::PAIRED){
+			$this->contents[] = $this->empty;
+		}
+		
 		
 		if(empty($this->tag)){
 //if an empty tag, no tag wrtappers or attributes

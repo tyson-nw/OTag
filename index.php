@@ -65,4 +65,31 @@ ksort($containers);
 foreach($containers as $container){
 	$body->add($container);
 }
+
+$body->add("<h2>Paired and unpaired empty Tags</h2>");
+$body->add("<p>By default a tag with no content will be considered an upaired tag.  Though you can explicity ")
+$body->add($paired = new OTag("div"));
+$p = new OTag("p");
+$p->empty = OTag::PAIRED;
+$paired->add("Force Paired tag: ");
+$paired->add(htmlentities($p->__toString()));
+$body->add($default = new OTag("div"));
+$d = new OTag("img", array("src"=>"http://example.com/aaa.png"));
+$default->add("Default Behavior: ");
+$default->add(htmlentities($d));
+$body->add($force = new OTag("div"));
+$f = new OTag("input", array("type"=>"submit"));
+$f->empty = OTag::UNPAIRED;
+$force->add("Forced unpaired tag: ");
+$force->add(htmlentities($f));
+
+$body->add("<h2>Change attribute quotes</h2>");
+$body->add($default = new OTag("div",null,OTag::INLINE));
+$default->add("Default Behavior:");
+$input = new OTag("input","id='test' name='test_in' type='text' value='Let\'s test this'");
+$default->add(htmlentities($input->__toString()));
+OTag::$quote = "\"";
+$body->add($quote = new OTag("div",null,OTag::INLINE));
+$quote->add("Updated OTag::\$quote:");
+$quote->add(htmlentities($input->__toString()));
 echo $body;
