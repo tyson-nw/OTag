@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL);
 /**
  * These are example uses for OTag
 **/ 
