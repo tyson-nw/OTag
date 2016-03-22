@@ -11,14 +11,14 @@ foreach($data as $value){
 		$dt->addClass(implode(" ", $value['tags'])); 
 	}
 	if(isset($value['picture'])){
-		$dt($img = new OTag('img',array("src"=>$value['picture'],"class"=>['eyecolor']),OTag::DISPLAY_UNPAIRED));
+		$dt($img = new OTag('img',array("src"=>$value['picture'],"class"=>['eyecolor']."_eye"),OTag::DISPLAY_UNPAIRED));
 	}
-	$dt->add($check = new OTag('input',['type'=>'checkbox','name'=>'check_'.$value['index'],'checked'=>$value['isActive'], 'disabled']));
+	$dt->add($check = new OTag('input',['type'=>'checkbox','id'=>'check_'.$value['index'],'name'=>'check['.$value['index']."]",'checked'=>$value['isActive'], 'disabled']),OTag::DISPLAY_UNPAIRED);
 	$dt->add("<label for='check_$value[index]'>$value[name]</label>");
 	$profiles($dd = OTag::Craft('dd', $value['greeting'], "class='$value[favoriteFruit]'"));
 }
 
-echo "<h1>Profile Test</h1>";
+echo "<h1>Profile Test</h1>\n";
 echo "<pre>\n";
 echo htmlentities($profiles->toString());
 echo "</pre>\n";
