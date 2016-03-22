@@ -14,7 +14,7 @@ foreach($data as $value){
 		$dt($img = new OTag('img',array("src"=>$value['picture'],"class"=>['eyecolor']."_eye"),OTag::DISPLAY_UNPAIRED));
 	}
 	$dt->add($check = new OTag('input',['type'=>'checkbox','id'=>'check_'.$value['index'],'name'=>'check['.$value['index']."]",'checked'=>$value['isActive'], 'disabled']),OTag::DISPLAY_UNPAIRED);
-	$dt->add("<label for='check_$value[index]'>$value[name]</label>");
+	$dt->add(OTag::Craft("label", $value['name'], ['for'=> 'check_' . $value['index']], OTag::DISPLAY_INLINE));
 	$profiles($dd = OTag::Craft('dd', $value['greeting'], "class='$value[favoriteFruit]'"));
 }
 
