@@ -13,9 +13,12 @@ foreach($data as $value){
 	if(isset($value['picture'])){
 		$dt($img = new OTag('img',array("src"=>$value['picture'],"class"=>$value['eyeColor']),OTag::DISPLAY_UNPAIRED));	//DISPLAY_UNPAIRED
 	}
+
+	$dt->add($check = new OTag('input',['type'=>'checkbox','id'=>'check_'.$value['index'],'name'=>'check['.$value['index']."]",'checked'=>$value['isActive'], 'disabled']),OTag::DISPLAY_UNPAIRED);
+	$dt->add(OTag::Craft("label", $value['name'], ['for'=> 'check_' . $value['index']], OTag::DISPLAY_INLINE));
 	//$dt->add(...) changed to $dt(...) because __invoke function was added
 	$dt($check = new OTag('input',['type'=>'checkbox','name'=>'check_'.$value['index'],'checked'=>$value['isActive'], 'disabled']));
-	$dt("<label for='check_$value[index]'>$value[name]</label>");
+	$dt(OTag::Craft("label", ['for'=>'check_'.$value['index']],OTag::DISPLAY_INLINE));
 	$profiles($dd = OTag::Craft('dd', $value['greeting'], "class='$value[favoriteFruit]'"));
 }
 
