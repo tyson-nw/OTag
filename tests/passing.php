@@ -13,7 +13,7 @@ foreach($data as $value){
 	if(isset($value['picture'])){
 		$dt($img = new OTag('img',array("src"=>$value['picture'],"class"=>$value['eyeColor'])));
 	}
-	$dt($check = new OTag('input',['type'=>'checkbox','name'=>'check_'.$value['index'],'checked'=>$value['isActive'], 'disabled']));
+	$dt($check = new OTag('input',['type'=>'checkbox','name'=>'check_'.$value['index'],'checked'=>!empty($value['isActive']), 'disabled']));
 	$dt("<label for='check_$value[index]'>$value[name]</label>");
 	$profiles($dd = OTag::Craft('dd', $value['greeting'], "class='$value[favoriteFruit]'"));
 }
