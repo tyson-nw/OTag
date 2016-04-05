@@ -8,7 +8,7 @@ class OTag extends OTagObject{
 	//This class appends to the end of the $attribute[class]
 	public function addClass($string) {
 		if (isset($attribute['class']))
-			$attribute['class'] += " ".$string;
+			$attribute['class'] .= " ".$string;
 		else
 			$attribute['class'] = $string;
 	}
@@ -64,7 +64,7 @@ abstract class OTagObject{
 	protected $display;				//
 
 	abstract public function __construct();
-	abstract public static function Craft();
+	//abstract public static function Craft();
 
 	//adds content to the object
 	/* This is not done in __invoke(), This function name
@@ -152,9 +152,10 @@ abstract class OTagObject{
 		}
 
 
+		$out = "";
 		if(empty($this->tag)){
 			//if an empty tag, no tag wrtappers or attributes
-			$out = "";
+			//$out = "";
 			foreach($this->contents as $content){
 				if($content instanceof OTagObject){
 					self::$indent--;
@@ -166,7 +167,7 @@ abstract class OTagObject{
 			}
 		}elseif(count($this->contents)==0){
 			//if an empty tag
-			$out = self::_nl(self::$indent) . vsprintf(self::EMPTY_FORMAT,array($this->tag,$attribs));
+			$out = vsprintf(self::EMPTY_FORMAT,array($this->tag,$attribs));
 		}elseif(count($this->contents) == 1 && !(current($this->contents) instanceof OTagObject)){
 			//if contains a single item and contents not an OTag, don't nl indent contents'
 			$args[2] = current($this->contents);
