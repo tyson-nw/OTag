@@ -131,7 +131,12 @@ abstract class OTagObject{
 		foreach($this->attributes as $key=>$value){
 			//var_dump($key);
 			//var_dump($value);
-			if(is_numeric($key)){
+			if($value === true) {
+				$attribs .= " " . $key;
+			}
+			else if ($value === false) {
+			}
+			else if(is_numeric($key)){
 				$attribs .= " " . $value;
 			}else{
 				$attribs .= sprintf($attrib_format, $key, $value);
