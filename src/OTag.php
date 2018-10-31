@@ -11,7 +11,7 @@
 class OTag extends OTagObject{
 	/**
 	 * Appends to the end of the "class" string in $attribute
-	 * with either a String or an
+	 * with a String
 	 * @param string $string	The string to append to the list of attributes
 	 * @return void		return value not used
 	 * @access	public
