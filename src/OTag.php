@@ -335,12 +335,11 @@ abstract class OTagObject{
 			$parent->_checkLoop($child);
 		}
 	}
-	/*
-    *http://stackoverflow.com/questions/30199001/how-can-i-parse-an-attribute-string-to-an-array-in-php
-    */
+
 	/**
 	 * @param string $input
 	 * @return array
+	 * Borrowed from http://stackoverflow.com/questions/30199001/how-can-i-parse-an-attribute-string-to-an-array-in-php
      */
 	protected static function _parse_attributes($input){
 		$re = "/(?:\\s*(\\w+)\\s*=\\s*(?:'((?:[^'\\\\]|\\\\')*)'|\"((?:[^\"\\\\]|\\\\\")*)\"?|(\\w+)))/";
