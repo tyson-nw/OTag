@@ -1,0 +1,14 @@
+{
+    "name": "tvanover/otag",
+    "description": "A simple tag object that supports nesting and referable containers.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tyson VanOverhill",
+            "email": "tyson.vanover@gmail.com"
+        }
+    ],
+    "minimum-stability": "alpha",
+    "require": {}
+}

@@ -1,6 +1,6 @@
 <?php
 
-include "../OTag.php";
+include "../src/OTag.php";
 $data = json_decode(file_get_contents("generated.json"), TRUE);
 
 
