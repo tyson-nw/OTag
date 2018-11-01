@@ -10,8 +10,5 @@
         }
     ],
     "minimum-stability": "alpha",
-    "require": {},
-    "require-dev": {
-        "phpdocumentor/phpdocumentor": "2.*"
-    }
+    "require": {}
 }
